@@ -80,6 +80,8 @@ var jane = Object.create(personProto, {
 // primitive variable -> hold value within variable itself
 // object variable -> hold reference pointer to value's location in memory
 
+/*
+
 // primitives
 var a = 23;
 var b = a;
@@ -113,3 +115,49 @@ change(age, obj);
 
 console.log(age);
 console.log(obj.city);
+
+*/
+
+// A function is an instance of the Object type
+// A function behaves like any other object;
+// We can store functions in a variable;
+// We can pass a function as an argument to another function;
+// We can return a function from a function;
+
+// Passing functions as arguments
+
+var years = [1990, 1965, 1937, 2005, 1998];
+
+// passing in our callback function (a function passed as an arg that will be called at a later time)
+function arrayCalc(arr, fn) {
+	var arrRes = [];
+	for (var i = 0; i < arr.length; i++) {
+		arrRes.push(fn(arr[i]));
+	}
+	return arrRes;
+}
+
+// callback function
+function calculateAge(el) {
+	return 2016 - el;
+}
+
+function isFullAge(el) {
+	return el >= 18;
+}
+
+function maxHeartRate(el) {
+	if (el >= 18 && el <= 81) {
+		return Math.round(206.9 - 0.67 * el);
+	} else {
+		return -1;
+	}
+}
+
+// for callback functions -> do NOT include () as this will cause an instant call of the function
+var ages = arrayCalc(years, calculateAge);
+console.log(ages);
+var fullAges = arrayCalc(ages, isFullAge);
+console.log(fullAges);
+var rates = arrayCalc(ages, maxHeartRate);
+console.log(rates);
