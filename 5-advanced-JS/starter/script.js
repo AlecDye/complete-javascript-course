@@ -118,6 +118,8 @@ console.log(obj.city);
 
 */
 
+/*
+
 // A function is an instance of the Object type
 // A function behaves like any other object;
 // We can store functions in a variable;
@@ -161,3 +163,30 @@ var fullAges = arrayCalc(ages, isFullAge);
 console.log(fullAges);
 var rates = arrayCalc(ages, maxHeartRate);
 console.log(rates);
+*/
+
+// Functions returning functions
+
+function interviewQuestion(job) {
+	if (job === "designer") {
+		return function (name) {
+			console.log(name + ", can you please explain what UX design is?");
+		};
+	} else if (job === "teacher") {
+		return function (name) {
+			console.log("What subject do you teach, " + name + "?");
+		};
+	} else {
+		return function (name) {
+			console.log("Hello " + name + ", what do you do?");
+		};
+	}
+}
+
+var teacherQuestion = interviewQuestion("teacher");
+var designerQuestion = interviewQuestion("designer");
+
+teacherQuestion("John");
+designerQuestion("John"); // "John" replaces the name arg for the inner function
+
+interviewQuestion("teacher")("Mark"); // still works correctly
