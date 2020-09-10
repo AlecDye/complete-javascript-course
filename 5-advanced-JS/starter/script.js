@@ -165,6 +165,7 @@ var rates = arrayCalc(ages, maxHeartRate);
 console.log(rates);
 */
 
+/*
 // Functions returning functions
 
 function interviewQuestion(job) {
@@ -190,3 +191,30 @@ teacherQuestion("John");
 designerQuestion("John"); // "John" replaces the name arg for the inner function
 
 interviewQuestion("teacher")("Mark"); // still works correctly
+
+*/
+
+// IIFE (Immediately Invoked Function Expressions)
+// IIFE great for data privacy, not great for reusable code (not assigned to variable so can't be compartmentalized)
+
+// function declaration
+function game() {
+	// random number between 0 - 9
+	var score = Math.random() * 10;
+	console.log(score >= 5);
+}
+game();
+
+// IIFE
+// trick the parser to see an expression instead of a declaration (otherwise error thrown)
+// functions usually need to be named or parsers will error
+(function () {
+	var score = Math.random() * 10;
+	console.log(score >= 5);
+})();
+
+// passing args into IIFE
+(function (goodLuck) {
+	var score = Math.random() * 10;
+	console.log(score >= 5 - goodLuck);
+})(5);
