@@ -194,6 +194,7 @@ interviewQuestion("teacher")("Mark"); // still works correctly
 
 */
 
+/*
 // IIFE (Immediately Invoked Function Expressions)
 // IIFE great for data privacy, not great for reusable code (not assigned to variable so can't be compartmentalized)
 
@@ -218,3 +219,74 @@ game();
 	var score = Math.random() * 10;
 	console.log(score >= 5 - goodLuck);
 })(5);
+
+*/
+
+// Closures
+
+// 1st arg
+function retirement(retirementAge) {
+	var a = " years left until retirement.";
+	// 2nd arg
+	return function (yearOfBirth) {
+		var age = 2016 - yearOfBirth;
+		console.log(retirementAge - age + a);
+	};
+}
+
+// saving the function call as a var (outer scope)
+var retirementUS = retirement(66);
+var retirementGermany = retirement(65);
+var retirementIceland = retirement(67);
+
+retirementUS(1990);
+retirementGermany(1990);
+retirementIceland(1990);
+
+/*
+
+// calling inner function from variable (inner scope)
+retirementUS(1990);
+// calling outer function and then inner function
+retirement(66)(1990);
+
+*/
+
+// An inner fn always has access to the variables and params of its outer fn, even after the outer fn has returned.
+
+// Scope chain (global -> outer fn -> inner fn) is created from the execution stack, but remains even after the outer fn returns. Meaning fn variables are still present in memory for us to use
+
+/*
+function interviewQuestion(job) {
+	if (job === "designer") {
+		return function (name) {
+			console.log(name + ", can you please explain what UX design is?");
+		};
+	} else if (job === "teacher") {
+		return function (name) {
+			console.log("What subject do you teach, " + name + "?");
+		};
+	} else {
+		return function (name) {
+			console.log("Hello " + name + ", what do you do?");
+		};
+	}
+}
+*/
+
+// refactoring to use Closures
+// single inner function who's output depends on conditionals
+// before it was 3 inner functions that applied to each case
+function interviewQuestion(job) {
+	return function (name) {
+		if (job === "designer") {
+			console.log(name + ", can you please explain what UX design is?");
+		} else if (job === "teacher") {
+			console.log("What subject do you teach, " + name + "?");
+		} else {
+			console.log("Hello " + name + ", what do you do?");
+		}
+	};
+}
+
+interviewQuestion("teacher")("John");
