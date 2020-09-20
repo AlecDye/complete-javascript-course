@@ -221,7 +221,7 @@ game();
 })(5);
 
 */
-
+/*
 // Closures
 
 // 1st arg
@@ -242,7 +242,7 @@ var retirementIceland = retirement(67);
 retirementUS(1990);
 retirementGermany(1990);
 retirementIceland(1990);
-
+*/
 /*
 
 // calling inner function from variable (inner scope)
@@ -273,7 +273,7 @@ function interviewQuestion(job) {
 	}
 }
 */
-
+/*
 // refactoring to use Closures
 // single inner function who's output depends on conditionals
 // before it was 3 inner functions that applied to each case
@@ -290,3 +290,144 @@ function interviewQuestion(job) {
 }
 
 interviewQuestion("teacher")("John");
+
+*/
+
+/*
+// Bind, call, and apply
+
+var john = {
+	name: "John",
+	age: 26,
+	job: "teacher",
+	presentation: function (style, timeOfDay) {
+		if (style === "formal") {
+			console.log(
+				"Good " +
+					timeOfDay +
+					", Ladies and gentlemen! I'm " +
+					this.name +
+					", I'm " +
+					this.job +
+					" and I'm " +
+					this.age +
+					" years old."
+			);
+		} else if (style === "friendly") {
+			console.log(
+				"Hey whats up? " +
+					"I'm " +
+					this.name +
+					", I'm " +
+					this.job +
+					" and I'm " +
+					this.age +
+					" years old. Have a nice " +
+					timeOfDay
+			);
+		}
+	},
+};
+
+var emily = {
+	name: "Emily",
+	age: 35,
+	job: "designer",
+};
+
+john.presentation("formal", "morning!");
+
+// Method Borrowing: this call will transfer john's "this" properties to emily's
+john.presentation.call(emily, "friendly", "afternoon");
+
+// john.presentation.call(emily, ["friendly", "afternoon"]);
+
+// bind method returns a func (must be saved to a variable)
+// bind can be used to create a function with some preset properties
+var johnFriendly = john.presentation.bind(john, "friendly");
+johnFriendly("evening");
+
+var emilyFormal = john.presentation.bind(emily, "formal");
+emilyFormal("morning");
+
+var years = [1990, 1965, 1937, 2005, 1998];
+function arrayCalc(arr, fn) {
+	var arrRes = [];
+	for (var i = 0; i < arr.length; i++) {
+		arrRes.push(fn(arr[i]));
+	}
+	return arrRes;
+}
+
+function calculateAge(el) {
+	return 2016 - el;
+}
+
+function isFullAge(limit, el) {
+	return el >= limit;
+}
+
+var ages = arrayCalc(years, calculateAge);
+// pass in a copy of the isFullAge fn with a preset limit (20)
+var fullJapan = arrayCalc(ages, isFullAge.bind(this, 20));
+console.log(ages);
+console.log(fullJapan);
+
+*/
+
+/*
+--- Let's build a fun quiz game in the console! ---
+
+1. Build a function constructor called Question to describe a question. A question should include:
+a) question itself
+b) the answers from which the player can choose the correct one (choose an adequate data structure here, array, object, etc.)
+c) correct answer (I would use a number for this)
+
+2. Create a couple of questions using the constructor
+
+3. Store them all inside an array
+
+4. Select one random question and log it on the console, together with the possible answers (each question should have a number) (Hint: write a method for the Question objects for this task).
+
+5. Use the 'prompt' function to ask the user for the correct answer. The user should input the number of the correct answer such as you displayed it on Task 4.
+
+6. Check if the answer is correct and print to the console whether the answer is correct ot nor (Hint: write another method for this).
+
+7. Suppose this code would be a plugin for other programmers to use in their code. So make sure that all your code is private and doesn't interfere with the other programmers code (Hint: we learned a special technique to do exactly that).
+*/
+
+// function constructor
+function Question(question, answers, correct) {
+	this.question = question;
+	this.answers = answers;
+	this.correct = correct;
+}
+
+Question.prototype.displayQuestion() = function () {
+	console.log(this.question);
+
+	for (var i = 0; i < this.answers.length; i++) {
+		console.log(i + ": " + this.answers[i]);
+	}
+};
+
+// question 1 (question, [possible answers], [correct answer index] )
+var q1 = new Question(
+	"Is JavaScript the coolest programming langauge in the world?",
+	["Yes", "No"],
+	0
+);
+
+var q2 = new Question(
+	"What's the name of the this course's teacher?",
+	["John", "Michael", "Jonas"],
+	2
+);
+
+var q3 = new Question("What does best describe coding?", ["Boring", "Hard", "Fun", "Tedious"], 2);
+
+var questions = [q1, q2, q3];
+
+var n = Math.floor(Math.random() * questions.length);
+
+questions[n].displayQuestion();
