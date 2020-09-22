@@ -34,7 +34,20 @@ var UIController = (function () {
 
 // GLOBAL APP CONTROLLER
 var controller = (function (budgetCtrl, UICtrl) {
-	var DOM = UICtrl.getDOMstrings();
+	// private functions
+	var setupEventListeners = function () {
+		var DOM = UICtrl.getDOMstrings();
+
+		// button event listener
+		document.querySelector(DOM.inputBtn).addEventListener("click", ctrlAddItem);
+
+		// keyboard press event listener (global document)
+		document.addEventListener("keypress", function (e) {
+			if (e.keyCode === 13 || e.which === 13) {
+				ctrlAddItem();
+			}
+		});
+	};
 
 	var ctrlAddItem = function () {
 		// 1. Get the field input data
@@ -46,13 +59,13 @@ var controller = (function (budgetCtrl, UICtrl) {
 		// 5. Display the budget
 	};
 
-	// button event listener
-	document.querySelector(DOM.inputBtn).addEventListener("click", ctrlAddItem);
-
-	// keyboard press event listener (global document)
-	document.addEventListener("keypress", function (e) {
-		if (e.keyCode === 13 || e.which === 13) {
-			ctrlAddItem();
-		}
-	});
+	return {
+		init: function () {
+			console.log("App has started");
+			setupEventListeners();
+		},
+	};
 })(budgetController, UIController);
+
+// the only line of code outside a function so that we can run all the scripts
+controller.init();
