@@ -3,36 +3,32 @@
 // 2. Data Module -> Stores and updates our data
 // 3. Controller Module -> the go-between for UI and Data
 
-// Controller modules
+// BUDGET CONTROLLER
 var budgetController = (function () {
-	// these variables are private, cannot be called from outside scope
-	// only available to inner scope
-	var x = 23;
-
-	var add = function (a) {
-		return x + a;
-	};
-
-	// this is public and can be executed from outside scope
-	return {
-		publicTest: function (b) {
-			return add(b);
-		},
-	};
+	// some code
 })();
 
+// UI CONTROLLER
 var UIController = (function () {
 	// some code
 })();
 
-// connect budget & UI into args
-// by naming the arg differently than the variable, if the global variable is changed we don't need to worry about the name inside this module
+// GLOBAL APP CONTROLLER
 var controller = (function (budgetCtrl, UICtrl) {
-	var z = budgetCtrl.publicTest(5);
-
-	return {
-		anotherPublic: function () {
-			console.log(z);
-		},
+	var ctrlAddItem = function () {
+		// 1. Get the field input data
+		// 2. Add the item to the budget controller
+		// 3. Add the item to the UI
+		// 4. Calc the budget
+		// 5. Display the budget
+		console.log("It works");
 	};
+
+	document.querySelector(".add__btn").addEventListener("click", ctrlAddItem);
+
+	document.addEventListener("keypress", function (e) {
+		if (e.keyCode === 13 || e.which === 13) {
+			ctrlAddItem();
+		}
+	});
 })(budgetController, UIController);
