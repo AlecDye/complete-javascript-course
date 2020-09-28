@@ -142,31 +142,78 @@
 
 // Lecture: Spread operator
 
-function addFourAges(a, b, c, d) {
-	return a + b + c + d;
-}
+// function addFourAges(a, b, c, d) {
+// 	return a + b + c + d;
+// }
 
-var sum1 = addFourAges(18, 30, 12, 21);
-console.log(sum1);
+// var sum1 = addFourAges(18, 30, 12, 21);
+// console.log(sum1);
+
+// // ES5
+// var ages = [18, 30, 12, 21];
+// var sum2 = addFourAges.apply(null, ages);
+// console.log(sum2);
+
+// // ES6
+// const sum3 = addFourAges(...ages);
+// console.log(sum3);
+
+// // join 2 arrays with spread operator
+// const familySmith = ["John", "Jane", "Mark"];
+// const familyMiller = ["Mary", "Bob", "Ann"];
+
+// const bigFamily = [...familySmith, "Lily", ...familyMiller];
+// console.log(bigFamily);
+
+// const h = document.querySelector("h1");
+// const boxes = document.querySelectorAll(".box");
+// const all = [h, ...boxes];
+
+// Array.from(all).forEach((cur) => (cur.style.color = "purple"));
+
+// Lecture: Rest parameters
 
 // ES5
-var ages = [18, 30, 12, 21];
-var sum2 = addFourAges.apply(null, ages);
-console.log(sum2);
+// function isFullAge5(limit) {
+// 	// console.log(arguments);
+// 	var argsArr = Array.prototype.slice.call(arguments, 1);
+// 	console.log(argsArr);
+// 	argsArr.forEach(function (cur) {
+// 		console.log(2016 - cur >= limit);
+// 	});
+// }
+
+// isFullAge5(21, 1990, 1999, 1965);
+
+// // ES6
+// function isFullAge6(limit, ...years) {
+// 	// transforms arguments into array when passed into func
+// 	// console.log(years);
+// 	years.forEach((cur) => console.log(2016 - cur >= limit));
+// }
+
+// isFullAge6(16, 1990, 1999, 1965);
+
+// Lecture: Default parameters
+
+// ES5
+// function SmithPerson(firstName, yearOfBirth, lastName, nationality) {
+// 	lastName === undefined ? (lastName = "Smith") : (lastName = lastName);
+// 	nationality === undefined ? (nationality = "american") : (nationality = nationality);
+
+// 	this.firstName = firstName;
+// 	this.lastName = lastName;
+// 	this.yearOfBirth = yearOfBirth;
+// 	this.nationality = nationality;
+// }
 
 // ES6
-const sum3 = addFourAges(...ages);
-console.log(sum3);
+// function SmithPerson(firstName, yearOfBirth, lastName = "Smith", nationality = "american") {
+// 	this.firstName = firstName;
+// 	this.lastName = lastName;
+// 	this.yearOfBirth = yearOfBirth;
+// 	this.nationality = nationality;
+// }
 
-// join 2 arrays with spread operator
-const familySmith = ["John", "Jane", "Mark"];
-const familyMiller = ["Mary", "Bob", "Ann"];
-
-const bigFamily = [...familySmith, "Lily", ...familyMiller];
-console.log(bigFamily);
-
-const h = document.querySelector("h1");
-const boxes = document.querySelectorAll(".box");
-const all = [h, ...boxes];
-
-Array.from(all).forEach((cur) => (cur.style.color = "purple"));
+// var john = new SmithPerson("John", 1990);
+// console.log(john);
